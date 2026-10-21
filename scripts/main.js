@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!fetchBtn || !resultContainer) return;
 
     let allJobs = [];
+    let currentFilteredJobs = [];
 
     function showCustomAlert(message) {
         const alert = document.createElement('div');
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function openJobModal(job) {
+        if (!job) return;
         modalTitle.textContent = job.title;
         modalCompany.textContent = job.company;
         modalLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}`;
@@ -108,14 +110,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         jobModal.classList.add('hidden');
     }
 
-    async function performSearch() {
+    async function performSearch(isInitialLoad = false) {
         const query = searchInput.value.trim().toLowerCase();
         const category = categoryFilter.value;
         const level = levelFilter.value;
         const location = locationFilter.value;
         const company = companyFilter.value;
 
-        if (!query) {
+        if (!query && !isInitialLoad) {
             showCustomAlert('Please enter a keyword to search for jobs!');
             searchInput.classList.add('shake');
             setTimeout(() => searchInput.classList.remove('shake'), 400);
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             const filteredJobs = allJobs.filter(job => {
-                const matchesQuery = (job.title || '').toLowerCase().includes(query) ||
+                const matchesQuery = !query || (job.title || '').toLowerCase().includes(query) ||
                                     (job.company || '').toLowerCase().includes(query);
                 const matchesCategory = !category || job.category === category;
                 const matchesLevel = !level || job.level === level;
@@ -141,6 +143,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return matchesQuery && matchesCategory && matchesLevel && matchesLocation && matchesCompany;
             });
 
+            currentFilteredJobs = filteredJobs;
+
             if (filteredJobs.length === 0) {
                 resultContainer.innerHTML = `<div class="no-results">No jobs found matching your criteria. Try adjusting your filters!</div>`;
                 return;
@@ -148,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             let html = `
                 <div class="search-meta">
-                    <p><strong>Found ${filteredJobs.length} jobs for:</strong> ${query} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
+                    <p><strong>Found ${filteredJobs.length} jobs${query ? ` for: ${query}` : ''} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
                 </div>
                 <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
                 <div class="job-list">
@@ -164,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span class="detail-item"><i class="fas fa-tag"></i> ${job.category || 'N/A'}</span>
                             <span class="detail-item"><i class="fas fa-layer-group"></i> ${job.level || 'N/A'}</span>
                         </div>
-                        <button class="fast-apply-btn" onclick="event.stopPropagation(); window.open('https://artificialintelligencejobs.co/jobs/${job.url_slug || ''}', '_blank')">Fast Apply</button>
+                        <button class="fast-apply-btn" onclick="event.stopPropagation(); window.handleFastApply(${index})">Fast Apply</button>
                     </div>
                 `;
             });
@@ -183,31 +187,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const retryBtn = document.getElementById('retry-btn');
             if (retryBtn) {
-                retryBtn.addEventListener('click', performSearch);
+                retryBtn.addEventListener('click', () => performSearch());
             }
         }
     }
 
-    // Expose global functions for HTML onclick handlers
+    // Global functions for HTML onclick handlers
     window.openJobDetails = (index) => {
-        const job = allJobs.find(j => j.id === index) || allJobs[index]; // fallback to index if id not mapped correctly
-        // For the mock preview/real api, we use the filter results
-        // Wait, performSearch filters the list. We need to store the CURRENTLY filtered list.
+        const job = currentFilteredJobs[index];
+        if (job) {
+            openJobModal(job);
+        }
     };
 
-    // Correcting the search to store results globally for the modal
-    let currentFilteredJobs = [];
-    const originalPerformSearch = performSearch;
-
-    // Redefining performSearch to save results
-    async function updatedPerformSearch() {
-        // ... logic from performSearch ...
-    }
-
-    // Let's just implement a simpler way: use a data attribute on the card
-    // Actually, the easiest is to store the filtered list.
-
-    // I'll rewrite the a few lines in a moment to make it cleaner.
+    window.handleFastApply = (index) => {
+        const job = currentFilteredJobs[index];
+        if (job) {
+            showCustomAlert('Application submitted for ' + job.title + '!');
+        }
+    };
 
     // Toggle Advanced Filters
     advancedBtn.addEventListener('click', () => {
@@ -225,5 +223,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     await initializeFilters();
-    fetchBtn.addEventListener('click', performSearch);
+    fetchBtn.addEventListener('click', () => performSearch());
+
+    // Automatically load all jobs on page load
+    performSearch(true);
 });

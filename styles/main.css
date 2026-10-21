@@ -38,7 +38,7 @@ nav a:hover {
 
 main {
     padding: 2rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -155,7 +155,7 @@ main {
 
 .job-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
     margin-top: 1rem;
 }
