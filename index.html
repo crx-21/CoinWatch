@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
     <header>
-        <h1>Welcome to the API Explorer</h1>
+        <h1>MLJobWatch</h1>
         <nav>
             <a href="index.html" title="Home"><i class="fas fa-home"></i></a>
             <a href="login.html" title="Login"><i class="fas fa-sign-in-alt"></i></a>
@@ -26,19 +28,32 @@
                 <div class="filters-group">
                     <select id="category-filter">
                         <option value="">All Categories</option>
-                        <option value="engineering">Engineering</option>
-                        <option value="design">Design</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="sales">Sales</option>
                     </select>
-                    <select id="level-filter">
-                        <option value="">All Levels</option>
-                        <option value="entry">Entry-Level</option>
-                        <option value="internship">Internship</option>
-                        <option value="junior">Junior</option>
-                        <option value="medium">Mid</option>
-                        <option value="senior">Senior</option>
-                    </select>
+                    <button id="advanced-btn" class="advanced-btn">
+                        Advanced Filters <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="advanced-section" class="advanced-filters hidden">
+                <div class="advanced-grid">
+                    <div class="filter-item">
+                        <label>Experience Level</label>
+                        <select id="level-filter">
+                            <option value="">All Levels</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Location</label>
+                        <select id="location-filter">
+                            <option value="">All Locations</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Company</label>
+                        <select id="company-filter">
+                            <option value="">All Companies</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
@@ -47,11 +62,35 @@
         </div>
     </main>
 
-    <footer>
+    <footer style="margin-bottom: 100px;">
         <p>&copy; 2026 API Project</p>
     </footer>
+
+    <div id="job-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Job Title</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-company" id="modal-company">Company Name</div>
+                <div class="modal-meta">
+                    <span id="modal-location"><i class="fas fa-map-marker-alt"></i> Location</span>
+                    <span id="modal-salary"><i class="fas fa-money-bill-wave"></i> Salary</span>
+                </div>
+                <div class="modal-description">
+                    <h4>Description</h4>
+                    <p id="modal-description">Detailed job description will appear here...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-apply-btn" class="apply-now-btn">Apply Now</button>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts/api.js"></script>
     <script src="scripts/main.js"></script>
 </body>
+
 </html>
