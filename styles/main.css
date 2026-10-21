@@ -154,6 +154,43 @@ main {
 
 /* ... existing styles ... */
 
+.custom-alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    font-weight: bold;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), fadeOut 0.5s ease-in 2.5s forwards;
+    pointer-events: none;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.shake {
+    animation: smoothShake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    border: 2px solid #ff4d4d !important;
+}
+
+@keyframes smoothShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-3px); }
+    40%, 80% { transform: translateX(3px); }
+}
+
+
 .error-card {
     background: #fff5f5;
     border: 1px solid #feb2b2;

@@ -11,10 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!fetchBtn || !resultContainer) return;
 
+    function showCustomAlert(message) {
+        const alert = document.createElement('div');
+        alert.className = 'custom-alert';
+        alert.textContent = message;
+        document.body.appendChild(alert);
+
+        setTimeout(() => {
+            alert.remove();
+        }, 3000);
+    }
+
     async function performSearch() {
-        const query = searchInput.value;
+        const query = searchInput.value.trim();
         const category = categoryFilter.value;
         const level = levelFilter.value;
+
+        if (!query) {
+            showCustomAlert('Please enter a keyword to search for jobs!');
+
+            // Trigger shake effect
+            searchInput.classList.add('shake');
+            setTimeout(() => searchInput.classList.remove('shake'), 400);
+
+            return;
+        }
 
         console.log('Searching for:', { query, category, level });
 
@@ -30,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             resultContainer.innerHTML = `
                 <div class="search-meta">
-                    <p><strong>Results for:</strong> ${query || 'All'} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
+                    <p><strong>Results for:</strong> ${query} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
                 </div>
                 <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
                 <h3>${data.title}</h3>
@@ -46,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Add event listener to the newly created retry button
             const retryBtn = document.getElementById('retry-btn');
             if (retryBtn) {
                 retryBtn.addEventListener('click', performSearch);
