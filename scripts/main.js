@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Modal elements
     const jobModal = document.getElementById('job-modal');
     const closeModalBtn = document.getElementById('close-modal');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
     const modalTitle = document.getElementById('modal-title');
     const modalCompany = document.getElementById('modal-company');
     const modalLocation = document.getElementById('modal-location');
@@ -217,7 +216,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Modal Close events
     closeModalBtn.addEventListener('click', closeJobModal);
-    modalCloseBtn.addEventListener('click', closeJobModal);
     window.addEventListener('click', (e) => {
         if (e.target === jobModal) closeJobModal();
     });
