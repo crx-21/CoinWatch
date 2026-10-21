@@ -45,7 +45,8 @@ main {
 .search-container {
     margin-bottom: 2rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search-bar {
@@ -153,6 +154,78 @@ main {
 }
 
 /* ... existing styles ... */
+
+.advanced-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #3498db;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+
+.advanced-btn:hover {
+    color: #2980b9;
+    background: transparent;
+}
+
+.advanced-filters {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.advanced-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-item label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #777;
+}
+
+.filter-item select {
+    padding: 6px 10px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.filter-item select:focus {
+    border-bottom-color: #3498db;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .advanced-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 .custom-alert {
     position: fixed;

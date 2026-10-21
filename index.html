@@ -26,19 +26,32 @@
                 <div class="filters-group">
                     <select id="category-filter">
                         <option value="">All Categories</option>
-                        <option value="engineering">Engineering</option>
-                        <option value="design">Design</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="sales">Sales</option>
                     </select>
-                    <select id="level-filter">
-                        <option value="">All Levels</option>
-                        <option value="entry">Entry-Level</option>
-                        <option value="internship">Internship</option>
-                        <option value="junior">Junior</option>
-                        <option value="medium">Mid</option>
-                        <option value="senior">Senior</option>
-                    </select>
+                    <button id="advanced-btn" class="advanced-btn">
+                        Advanced Filters <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="advanced-section" class="advanced-filters hidden">
+                <div class="advanced-grid">
+                    <div class="filter-item">
+                        <label>Experience Level</label>
+                        <select id="level-filter">
+                            <option value="">All Levels</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Location</label>
+                        <select id="location-filter">
+                            <option value="">All Locations</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Company</label>
+                        <select id="company-filter">
+                            <option value="">All Companies</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
