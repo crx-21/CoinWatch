@@ -2,7 +2,7 @@
  * Main page logic
  */
 
-document.addEventListener('DOMContentLoaded', async async () => {
+document.addEventListener('DOMContentLoaded', async async async () => {
     const fetchBtn = document.getElementById('fetch-btn');
     const resultContainer = document.getElementById('result-container');
     const searchInput = document.getElementById('search-text');
@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', async async () => {
 
     let allJobs = [];
 
+    let allJobs = [];
+
     function showCustomAlert(message) {
         const alert = document.createElement('div');
         alert.className = 'custom-alert';
@@ -38,6 +40,45 @@ document.addEventListener('DOMContentLoaded', async async () => {
         setTimeout(() => {
             alert.remove();
         }, 3000);
+    }
+
+    async function initializeFilters() {
+        try {
+            const response = await apiFetch();
+            // The API returns an object { jobs: [...] }, not a direct array
+            const jobs = response.jobs || [];
+            allJobs = jobs;
+
+            const categories = new Set();
+            const levels = new Set();
+
+            jobs.forEach(job => {
+                if (job.category) categories.add(job.category);
+                if (job.level) levels.add(job.level);
+            });
+
+            // Populate Categories
+            categoryFilter.innerHTML = '<option value="">All Categories</option>';
+            Array.from(categories).sort().forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                categoryFilter.appendChild(opt);
+            });
+
+            // Populate Levels
+            levelFilter.innerHTML = '<option value="">All Levels</option>';
+            Array.from(levels).sort().forEach(lvl => {
+                const opt = document.createElement('option');
+                opt.value = lvl;
+                opt.textContent = lvl;
+                levelFilter.appendChild(opt);
+            });
+
+        } catch (error) {
+            console.error('Initialization failed:', error);
+            resultContainer.innerHTML = `<p style="color: red; text-align: center;">Failed to load filter categories. Please refresh the page.</p>`;
+        }
     }
 
     async function initializeFilters() {
@@ -151,7 +192,7 @@ document.addEventListener('DOMContentLoaded', async async () => {
     }
 
     async function performSearch(isInitialLoad = false) {
-        const query = searchInput.value.trim().toLowerCase().toLowerCase();
+        const query = searchInput.value.trim().toLowerCase().toLowerCase().toLowerCase();
         const category = categoryFilter.value;
         const level = levelFilter.value;
         const location = locationFilter.value;
@@ -304,6 +345,8 @@ document.addEventListener('DOMContentLoaded', async async () => {
 
                     // Automatically load all jobs on page load
                     performSearch(true);
+                    // Initialize the application
+                    await initializeFilters();
                     // Initialize the application
                     await initializeFilters();
                     fetchBtn.addEventListener('click', performSearch);

@@ -5,6 +5,7 @@
 
 const API_CONFIG = {
     BASE_URL: 'https://artificialintelligencejobs.co/api/jobs',
+    BASE_URL: 'https://artificialintelligencejobs.co/api/jobs',
 };
 
 async function apiFetch(endpoint) {
