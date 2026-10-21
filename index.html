@@ -5,21 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - API Project</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <header>
         <h1>Welcome to the API Explorer</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="pages/about.html">About</a>
+            <a href="index.html" title="Home"><i class="fas fa-home"></i></a>
+            <a href="login.html" title="Login"><i class="fas fa-sign-in-alt"></i></a>
         </nav>
     </header>
 
     <main id="app">
-        <section class="hero">
-            <h2>Fetch Data from the API</h2>
-            <p>Click the button below to load data using our JS utility.</p>
-            <button id="fetch-btn">Fetch Data</button>
+        <section class="search-container">
+            <div class="search-bar">
+                <div class="search-input-group">
+                    <input type="text" id="search-text" placeholder="Search jobs, keywords...">
+                    <button id="fetch-btn">Search</button>
+                </div>
+                <div class="filters-group">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="design">Design</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="sales">Sales</option>
+                    </select>
+                    <select id="level-filter">
+                        <option value="">All Levels</option>
+                        <option value="entry">Entry-Level</option>
+                        <option value="internship">Internship</option>
+                        <option value="junior">Junior</option>
+                        <option value="medium">Mid</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                </div>
+            </div>
         </section>
         <div id="result-container" class="result-container">
             <!-- API data will be injected here -->
@@ -30,7 +51,7 @@
         <p>&copy; 2026 API Project</p>
     </footer>
 
-    <script src="js/api.js"></script>
-    <script src="js/main.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
