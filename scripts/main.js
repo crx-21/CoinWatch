@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function initializeFilters() {
         try {
             const response = await apiFetch();
-            const jobs = response.jobs || [];
+            // The API returns an array of jobs directly or an object with a jobs property
+            const jobs = Array.isArray(response) ? response : (response.jobs || []);
             allJobs = jobs;
 
             const categories = new Set();
@@ -191,7 +192,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Global functions for HTML onclick handlers
     window.openJobDetails = (index) => {
         const job = currentFilteredJobs[index];
         if (job) {
@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    // Toggle Advanced Filters
     advancedBtn.addEventListener('click', () => {
         const isHidden = advancedSection.classList.toggle('hidden');
         const icon = advancedBtn.querySelector('i');
@@ -214,7 +213,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         advancedBtn.childNodes[0].textContent = isHidden ? ' Advanced Filters ' : ' Close Filters ';
     });
 
-    // Modal Close events
     closeModalBtn.addEventListener('click', closeJobModal);
     window.addEventListener('click', (e) => {
         if (e.target === jobModal) closeJobModal();
@@ -222,7 +220,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await initializeFilters();
     fetchBtn.addEventListener('click', () => performSearch());
-
-    // Automatically load all jobs on page load
     performSearch(true);
 });
