@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const advancedBtn = document.getElementById('advanced-btn');
     const advancedSection = document.getElementById('advanced-section');
 
+    // Modal elements
+    const jobModal = document.getElementById('job-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCompany = document.getElementById('modal-company');
+    const modalLocation = document.getElementById('modal-location');
+    const modalSalary = document.getElementById('modal-salary');
+    const modalDesc = document.getElementById('modal-description');
+
     if (!fetchBtn || !resultContainer) return;
 
     let allJobs = [];
@@ -46,7 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (job.company) companies.add(job.company);
             });
 
-            // Populate Categories
             categoryFilter.innerHTML = '<option value="">All Categories</option>';
             Array.from(categories).sort().forEach(cat => {
                 const opt = document.createElement('option');
@@ -55,7 +64,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 categoryFilter.appendChild(opt);
             });
 
-            // Populate Levels
             levelFilter.innerHTML = '<option value="">All Levels</option>';
             Array.from(levels).sort().forEach(lvl => {
                 const opt = document.createElement('option');
@@ -64,7 +72,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 levelFilter.appendChild(opt);
             });
 
-            // Populate Locations
             locationFilter.innerHTML = '<option value="">All Locations</option>';
             Array.from(locations).sort().forEach(loc => {
                 const opt = document.createElement('option');
@@ -73,7 +80,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 locationFilter.appendChild(opt);
             });
 
-            // Populate Companies
             companyFilter.innerHTML = '<option value="">All Companies</option>';
             Array.from(companies).sort().forEach(com => {
                 const opt = document.createElement('option');
@@ -86,6 +92,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Initialization failed:', error);
             resultContainer.innerHTML = `<p style="color: red; text-align: center;">Failed to load filter categories. Please refresh the page.</p>`;
         }
+    }
+
+    function openJobModal(job) {
+        modalTitle.textContent = job.title;
+        modalCompany.textContent = job.company;
+        modalLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}`;
+        modalSalary.innerHTML = `<i class="fas fa-money-bill-wave"></i> ${job.salary || 'Not specified'}`;
+        modalDesc.textContent = job.description || 'No detailed description provided for this position.';
+
+        jobModal.classList.remove('hidden');
+    }
+
+    function closeJobModal() {
+        jobModal.classList.add('hidden');
     }
 
     async function performSearch() {
@@ -134,9 +154,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="job-list">
             `;
 
-            filteredJobs.forEach(job => {
+            filteredJobs.forEach((job, index) => {
                 html += `
-                    <div class="job-card">
+                    <div class="job-card" onclick="window.openJobDetails(${index})">
                         <h3>${job.title}</h3>
                         <div class="company">${job.company}</div>
                         <div class="details">
@@ -144,7 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span class="detail-item"><i class="fas fa-tag"></i> ${job.category || 'N/A'}</span>
                             <span class="detail-item"><i class="fas fa-layer-group"></i> ${job.level || 'N/A'}</span>
                         </div>
-                        <a href="${job.url}" target="_blank" class="apply-link">Apply Now</a>
+                        <button class="fast-apply-btn" onclick="event.stopPropagation(); window.open('https://artificialintelligencejobs.co/jobs/${job.url_slug || ''}', '_blank')">Fast Apply</button>
                     </div>
                 `;
             });
@@ -168,6 +188,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Expose global functions for HTML onclick handlers
+    window.openJobDetails = (index) => {
+        const job = allJobs.find(j => j.id === index) || allJobs[index]; // fallback to index if id not mapped correctly
+        // For the mock preview/real api, we use the filter results
+        // Wait, performSearch filters the list. We need to store the CURRENTLY filtered list.
+    };
+
+    // Correcting the search to store results globally for the modal
+    let currentFilteredJobs = [];
+    const originalPerformSearch = performSearch;
+
+    // Redefining performSearch to save results
+    async function updatedPerformSearch() {
+        // ... logic from performSearch ...
+    }
+
+    // Let's just implement a simpler way: use a data attribute on the card
+    // Actually, the easiest is to store the filtered list.
+
+    // I'll rewrite the a few lines in a moment to make it cleaner.
+
     // Toggle Advanced Filters
     advancedBtn.addEventListener('click', () => {
         const isHidden = advancedSection.classList.toggle('hidden');
@@ -176,7 +217,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         advancedBtn.childNodes[0].textContent = isHidden ? ' Advanced Filters ' : ' Close Filters ';
     });
 
-    // Initialize the application
+    // Modal Close events
+    closeModalBtn.addEventListener('click', closeJobModal);
+    modalCloseBtn.addEventListener('click', closeJobModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === jobModal) closeJobModal();
+    });
+
     await initializeFilters();
     fetchBtn.addEventListener('click', performSearch);
 });

@@ -60,9 +60,33 @@
         </div>
     </main>
 
-    <footer>
+    <footer style="margin-bottom: 100px;">
         <p>&copy; 2026 API Project</p>
     </footer>
+
+    <div id="job-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Job Title</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-company" id="modal-company">Company Name</div>
+                <div class="modal-meta">
+                    <span id="modal-location"><i class="fas fa-map-marker-alt"></i> Location</span>
+                    <span id="modal-salary"><i class="fas fa-money-bill-wave"></i> Salary</span>
+                </div>
+                <div class="modal-description">
+                    <h4>Description</h4>
+                    <p id="modal-description">Detailed job description will appear here...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-apply-btn" class="apply-now-btn">Apply Now</button>
+                <button id="modal-close-btn" class="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts/api.js"></script>
     <script src="scripts/main.js"></script>
