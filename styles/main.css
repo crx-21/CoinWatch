@@ -542,3 +542,50 @@ main {
 .retry-btn:hover {
     background-color: #9b2c2c;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    padding: 15px 25px;
+    background: #f0f2f5;
+    border-radius: 30px;
+    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff,
+                inset 4px 4px 8px rgba(0,0,0,0.1),
+                inset -4px -4px 8px rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+.pagination-btn {
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    color: #3498db;
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    user-select: none;
+    font-weight: 500;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(52, 152, 219, 0.1);
+    transform: scale(1.1);
+}
+
+.pagination-btn.active {
+    background: #3498db;
+    color: white;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
