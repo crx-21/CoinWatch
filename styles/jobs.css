@@ -1,0 +1,954 @@
+/* ================================================================
+   MLJobWatch — Claymorphism Design System (Light Theme)
+   Inflated clay aesthetic applied to all components
+   ================================================================ */
+:root {
+  /* Clay surface tones — light clay body */
+  --clay-surface: #f0f2f5;           /* base clay body */
+  --clay-surface-alt: #e8eaef;       /* slightly darker clay body */
+  --clay-header: #2470a3;
+  --clay-border-light: #ffffff;      /* top/left highlight border */
+  --clay-border-dark: #c9ced6;       /* bottom/right shadow border */
+  --clay-inner-light: rgba(255, 255, 255, 0.8);   /* inner puff highlight */
+  --clay-inner-dark: rgba(0, 0, 0, 0.12);         /* inner depth shadow */
+
+  /* Component colors */
+  --color-primary: #3498db;
+  --color-primary-hover: #1e6594;
+  --color-secondary: #2c3e50;
+  --color-accent: #e74c3c;
+
+  /* Text colors */
+  --color-text-primary: #2c3e50;
+  --color-text-secondary: #555;
+  --color-text-muted: #777;
+
+  /* Radius & transitions */
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-blob: 65% 35% 58% 42% / 55% 40% 60% 45%;
+  --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: #f4f4f9;
+  scrollbar-width: thin;
+  scrollbar-color: var(--clay-border-dark) var(--clay-surface);
+}
+
+/* Remove default Google/WebKit scrollbar — thin clay-themed scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--clay-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clay-border-dark);
+  border-radius: 10px;
+  border: 2px solid var(--clay-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ================================================================
+   Header & Nav — Claymorphic
+   ================================================================ */
+header {
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  box-shadow:
+    0 10px 20px -5px rgba(52, 152, 219, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.25),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+nav a {
+  color: #ffffff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+/* ================================================================
+   Main layout
+   ================================================================ */
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ================================================================
+   Search Bar — Claymorphic container
+   ================================================================ */
+.search-container {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--clay-surface);
+  padding: 15px;
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.06),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+  border: none;
+}
+
+.search-input-group {
+  display: flex;
+  flex: 1;
+  gap: 5px;
+  min-width: 300px;
+}
+
+.search-input-group input {
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: linear-gradient(145deg, #ffffff, #e8eaef);
+  color: var(--color-text-primary);
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-dark),
+    inset -4px -4px 8px var(--clay-inner-light);
+  transition: var(--transition);
+}
+
+.search-input-group input:focus {
+  outline: none;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-dark),
+    inset -4px -4px 8px var(--clay-inner-light),
+    0 0 0 3px rgba(52, 152, 219, 0.25);
+  transform: translateY(-1px);
+}
+
+.filters-group {
+  display: flex;
+  gap: 10px;
+}
+
+.filters-group select {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #ffffff, #e8eaef);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-dark),
+    inset -4px -4px 8px var(--clay-inner-light);
+  transition: var(--transition);
+}
+
+.filters-group select:focus {
+  outline: none;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-dark),
+    inset -4px -4px 8px var(--clay-inner-light),
+    0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+/* ================================================================
+   Buttons — Unified Claymorphic
+   ================================================================ */
+.btn-clay {
+  border: none;
+  border-radius: 14px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #ffffff;
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow:
+    0 10px 20px -5px rgba(52, 152, 219, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.3px;
+}
+
+.btn-clay:hover {
+  background: linear-gradient(145deg, var(--color-primary-hover), #1c6ea4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 28px -8px rgba(52, 152, 219, 0.5),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.btn-clay:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.3),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.2);
+}
+
+.btn-clay:focus-visible {
+  outline: 4px solid rgba(52, 152, 219, 0.5);
+  outline-offset: 3px;
+}
+
+.btn-clay:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow:
+    0 6px 12px -3px rgba(52, 152, 219, 0.25),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.15),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Legacy fetch-btn — keep working but style as clay button */
+#fetch-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  box-shadow:
+    0 10px 20px -5px rgba(52, 152, 219, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+
+#fetch-btn:hover {
+  background: linear-gradient(145deg, var(--color-primary-hover), #1c6ea4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 28px -8px rgba(52, 152, 219, 0.5),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 600px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input-group {
+    flex-direction: column;
+    min-width: unset;
+  }
+
+  .filters-group {
+    flex-direction: column;
+  }
+}
+
+/* ================================================================
+   Result Container — Claymorphic card
+   ================================================================ */
+.result-container {
+  background: var(--clay-surface);
+  padding: 1rem;
+  border-radius: var(--radius-xl);
+  min-height: 100px;
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.06),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+  border: none;
+}
+
+/* ================================================================
+   Loader — Claymorphic spinner
+   ================================================================ */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.loader {
+  border: 6px solid var(--clay-border-dark);
+  border-top: 6px solid var(--color-primary);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================================================
+   Job Cards — Claymorphic
+   ================================================================ */
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.job-card {
+  background: var(--clay-surface);
+  border: none;
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.06),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  height: 100%;
+}
+
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 14px 28px -8px rgba(0, 0, 0, 0.1),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.job-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.job-card .company {
+  font-weight: bold;
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+.job-card .details {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.job-card .detail-item {
+  background: var(--clay-surface-alt);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  box-shadow:
+    inset 2px 2px 4px var(--clay-inner-light),
+    inset -2px -2px 4px var(--clay-inner-dark);
+}
+
+.fast-apply-btn {
+  align-self: flex-start;
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow:
+    0 6px 12px -4px rgba(52, 152, 219, 0.4),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.3),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.fast-apply-btn:hover {
+  background: linear-gradient(145deg, var(--color-primary-hover), #1c6ea4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 20px -6px rgba(52, 152, 219, 0.5),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.4),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+/* ================================================================
+   Modals — Claymorphic
+   ================================================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  background: var(--clay-surface);
+  width: 90%;
+  max-width: 600px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  animation: clayModalPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
+    inset 6px 6px 12px var(--clay-inner-light),
+    inset -6px -6px 12px var(--clay-inner-dark),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  border: none;
+}
+
+@keyframes clayModalPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  background: var(--clay-surface-alt);
+  color: var(--color-text-primary);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  color: var(--color-accent);
+  background: var(--clay-inner-light);
+  transform: scale(1.1);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-company {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 20px;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.modal-description h4 {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.modal-description p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  background: var(--clay-surface-alt);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: none;
+  box-shadow:
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+}
+
+.apply-now-btn {
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  box-shadow:
+    0 8px 16px -4px rgba(52, 152, 219, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.3),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.apply-now-btn:hover {
+  background: linear-gradient(145deg, var(--color-primary-hover), #1c6ea4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 24px -6px rgba(52, 152, 219, 0.5),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.4),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.apply-now-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.close-modal-btn {
+  background: var(--clay-surface-alt);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: var(--transition);
+  box-shadow:
+    inset 3px 3px 6px var(--clay-inner-light),
+    inset -3px -3px 6px var(--clay-inner-dark);
+}
+
+.close-modal-btn:hover {
+  background: linear-gradient(145deg, #d9dde3, #c9ced6);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 12px -4px rgba(0, 0, 0, 0.1),
+    inset 3px 3px 6px var(--clay-inner-light),
+    inset -3px -3px 6px var(--clay-inner-dark);
+}
+
+/* ================================================================
+   Advanced Filters — Claymorphic
+   ================================================================ */
+.advanced-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  box-shadow:
+    inset 2px 2px 4px var(--clay-inner-light),
+    inset -2px -2px 4px var(--clay-inner-dark);
+}
+
+.advanced-btn:hover {
+  color: var(--color-primary-hover);
+  background: var(--clay-inner-light);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 2px 2px 4px var(--clay-inner-light),
+    inset -2px -2px 4px var(--clay-inner-dark);
+}
+
+.advanced-filters {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  background: var(--clay-surface);
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.06),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+  border: none;
+  opacity: 0;
+  animation: fadeInCard 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Utility class for programmatic fade-in apparition (e.g. advanced filters) */
+.fade-in {
+  animation: fadeInCard 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.advanced-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-item label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.filter-item select {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #ffffff, #e8eaef);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  box-shadow:
+    inset 3px 3px 6px var(--clay-inner-dark),
+    inset -3px -3px 6px var(--clay-inner-light);
+}
+
+.filter-item select:focus {
+  box-shadow:
+    inset 3px 3px 6px var(--clay-inner-dark),
+    inset -3px -3px 6px var(--clay-inner-light),
+    0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .advanced-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ================================================================
+   Alerts — Claymorphic
+   ================================================================ */
+.custom-alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--clay-surface-alt);
+  color: var(--color-text-primary);
+  padding: 15px 25px;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.12),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+  z-index: 1000;
+  font-weight: bold;
+  border: none;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), fadeOut 0.5s ease-in 2.5s forwards;
+  pointer-events: none;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ================================================================
+   Error States — Claymorphic
+   ================================================================ */
+.shake {
+  animation: smoothShake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+  border: 2px solid #e74c3c !important;
+}
+
+@keyframes smoothShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-3px);
+  }
+  40%, 80% {
+    transform: translateX(3px);
+  }
+}
+
+.error-card {
+  background: var(--clay-surface-alt);
+  border: none;
+  color: #c53030;
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.08),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark);
+}
+
+.error-card h3 {
+  margin-bottom: 1rem;
+  color: #9b2c2c;
+}
+
+.error-card p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.retry-btn {
+  padding: 10px 20px;
+  background: linear-gradient(145deg, #c53030, #9b2c2c);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: inherit;
+  transition: var(--transition);
+  box-shadow:
+    0 8px 16px -4px rgba(197, 48, 48, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.25),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.retry-btn:hover {
+  background: linear-gradient(145deg, #9b2c2c, #7a2424);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 24px -6px rgba(197, 48, 48, 0.5),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.35),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.retry-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* ================================================================
+   Pagination — Claymorphic
+   ================================================================ */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 15px 25px;
+  border-radius: var(--radius-xl);
+  background: var(--clay-surface);
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.06),
+    inset 4px 4px 8px var(--clay-inner-light),
+    inset -4px -4px 8px var(--clay-inner-dark),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  border: none;
+}
+
+.pagination-btn {
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: var(--transition);
+  user-select: none;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: linear-gradient(145deg, var(--clay-surface-alt), #d9dde3);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 3px 3px 6px var(--clay-inner-light),
+    inset -3px -3px 6px var(--clay-inner-dark);
+  color: var(--color-primary);
+}
+
+.pagination-btn.active {
+  background: linear-gradient(145deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.2),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow:
+    inset 3px 3px 6px var(--clay-inner-light),
+    inset -3px -3px 6px var(--clay-inner-dark);
+}
+
+/* ================================================================
+   Responsive — Job list breakpoints
+   ================================================================ */
+@media (max-width: 1100px) {
+  .job-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .job-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   Reduced motion
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
