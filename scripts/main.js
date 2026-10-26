@@ -102,6 +102,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         modalLocation.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}`;
         modalSalary.innerHTML = `<i class="fas fa-money-bill-wave"></i> ${job.salary || 'Not specified'}`;
         modalDesc.textContent = job.description || 'No detailed description provided for this position.';
+        
+        // Add posted date to modal if available
+        const modalMeta = document.querySelector('.modal-meta');
+        if (modalMeta && job.posted) {
+            // Remove any existing posted date span
+            const existingPosted = modalMeta.querySelector('.modal-posted');
+            if (existingPosted) existingPosted.remove();
+            
+            const postedSpan = document.createElement('span');
+            postedSpan.className = 'modal-posted';
+            postedSpan.innerHTML = `<i class="fas fa-calendar-alt"></i> Posted: ${job.posted}`;
+            modalMeta.appendChild(postedSpan);
+        }
+
+        // Update Apply Now button with apply_url
+        const applyBtn = document.getElementById('modal-apply-btn');
+        if (applyBtn && job.apply_url) {
+            applyBtn.onclick = () => {
+                window.open(job.apply_url, '_blank', 'noopener,noreferrer');
+            };
+            applyBtn.textContent = 'Apply Now';
+        }
 
         jobModal.classList.remove('hidden');
     }
@@ -167,8 +189,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span class="detail-item"><i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}</span>
                             <span class="detail-item"><i class="fas fa-tag"></i> ${job.category || 'N/A'}</span>
                             <span class="detail-item"><i class="fas fa-layer-group"></i> ${job.level || 'N/A'}</span>
+                            <span class="detail-item"><i class="fas fa-calendar-alt"></i> Posted: ${job.posted || 'N/A'}</span>
                         </div>
-                        <button class="fast-apply-btn" onclick="event.stopPropagation(); window.handleFastApply(${index})">Fast Apply</button>
+                        <a href="${job.apply_url || job.url || '#'}" target="_blank" rel="noopener noreferrer" class="fast-apply-btn">Fast Apply</a>
                     </div>
                 `;
             });
