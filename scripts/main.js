@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let allJobs = [];
     let currentFilteredJobs = [];
+    let currentPage = 1;
+    const JOBS_PER_PAGE = 20;
 
     function showCustomAlert(message) {
         const alert = document.createElement('div');
@@ -41,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function initializeFilters() {
         try {
             const response = await apiFetch();
-            // The API returns an array of jobs directly or an object with a jobs property
             const jobs = Array.isArray(response) ? response : (response.jobs || []);
             allJobs = jobs;
 
@@ -110,6 +111,55 @@ document.addEventListener('DOMContentLoaded', async () => {
         jobModal.classList.add('hidden');
     }
 
+    function renderJobs() {
+        const startIndex = (currentPage - 1) * JOBS_PER_PAGE;
+        const endIndex = startIndex + JOBS_PER_PAGE;
+        const paginatedJobs = currentFilteredJobs.slice(startIndex, endIndex);
+
+        let html = `<div class="job-list">`;
+
+        paginatedJobs.forEach((job, index) => {
+            const realIndex = startIndex + index;
+            html += `
+                <div class="job-card" onclick="window.openJobDetails(${realIndex})">
+                    <h3>${job.title}</h3>
+                    <div class="company">${job.company}</div>
+                    <div class="details">
+                        <span class="detail-item"><i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}</span>
+                        <span class="detail-item"><i class="fas fa-tag"></i> ${job.category || 'N/A'}</span>
+                        <span class="detail-item"><i class="fas fa-layer-group"></i> ${job.level || 'N/A'}</span>
+                    </div>
+                    <button class="fast-apply-btn" onclick="event.stopPropagation(); window.handleFastApply(${realIndex})">Fast Apply</button>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+        return html;
+    }
+
+    function renderPagination() {
+        const totalPages = Math.ceil(currentFilteredJobs.length / JOBS_PER_PAGE);
+        if (totalPages <= 1) return '';
+
+        let html = `<div class="pagination-container">`;
+
+        html += `<button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="window.goToPage(${currentPage - 1})">Previous</button>`;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="window.goToPage(${i})">${i}</button>`;
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                html += `<span class="pagination-btn">...</span>`;
+            }
+        }
+
+        html += `<button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="window.goToPage(${currentPage + 1})">Next</button>`;
+
+        html += `</div>`;
+        return html;
+    }
+
     async function performSearch(isInitialLoad = false) {
         const query = searchInput.value.trim().toLowerCase();
         const category = categoryFilter.value;
@@ -144,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             currentFilteredJobs = filteredJobs;
+            currentPage = 1;
 
             if (filteredJobs.length === 0) {
                 resultContainer.innerHTML = `<div class="no-results">No jobs found matching your criteria. Try adjusting your filters!</div>`;
@@ -155,25 +206,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <p><strong>Found ${filteredJobs.length} jobs${query ? ` for: ${query}` : ''} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
                 </div>
                 <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
-                <div class="job-list">
             `;
 
-            filteredJobs.forEach((job, index) => {
-                html += `
-                    <div class="job-card" onclick="window.openJobDetails(${index})">
-                        <h3>${job.title}</h3>
-                        <div class="company">${job.company}</div>
-                        <div class="details">
-                            <span class="detail-item"><i class="fas fa-map-marker-alt"></i> ${job.location || 'Remote'}</span>
-                            <span class="detail-item"><i class="fas fa-tag"></i> ${job.category || 'N/A'}</span>
-                            <span class="detail-item"><i class="fas fa-layer-group"></i> ${job.level || 'N/A'}</span>
-                        </div>
-                        <button class="fast-apply-btn" onclick="event.stopPropagation(); window.handleFastApply(${index})">Fast Apply</button>
-                    </div>
-                `;
-            });
+            html += renderJobs();
+            html += renderPagination();
 
-            html += `</div>`;
             resultContainer.innerHTML = html;
 
         } catch (error) {
@@ -191,6 +228,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     }
+
+    window.goToPage = (page) => {
+        currentPage = page;
+
+        const query = searchInput.value.trim().toLowerCase();
+        const category = categoryFilter.value;
+        const level = levelFilter.value;
+        const location = locationFilter.value;
+        const company = companyFilter.value;
+
+        let html = `
+            <div class="search-meta">
+                <p><strong>Found ${currentFilteredJobs.length} jobs${query ? ` for: ${query}` : ''} | <strong>Category:</strong> ${category || 'All'} | <strong>Level:</strong> ${level || 'All'}</p>
+            </div>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+        `;
+
+        html += renderJobs();
+        html += renderPagination();
+
+        resultContainer.innerHTML = html;
+    };
 
     window.openJobDetails = (index) => {
         const job = currentFilteredJobs[index];

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLJobWatch — Sign In</title>
+  <link rel="stylesheet" href="../styles/login.css" />
+</head>
+<body>
+  <!-- Background animation layer -->
+  <div class="bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <main class="app">
+    <!-- Login View -->
+    <section id="login-view" class="view active">
+      <div class="card">
+        <div class="card-header">
+          <h1>Welcome back</h1>
+          <p>Sign in to your MLJobWatch account</p>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="login-email">Email address</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              placeholder="you@company.com"
+              required
+            />
+            <span class="error-msg" id="login-email-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+            <span class="error-msg" id="login-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="login-btn">
+            Sign in
+          </button>
+        </form>
+
+        <div class="footer-text">
+          Don't have an account yet?
+          <a href="#register" class="link" id="to-register">Register here</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Register View -->
+    <section id="register-view" class="view">
+      <div class="card">
+        <div class="card-header">
+          <h1>Create account</h1>
+          <p>Join MLJobWatch today</p>
+        </div>
+
+        <form id="register-form" novalidate>
+          <div class="field">
+            <label for="reg-fullname">Full name</label>
+            <input
+              type="text"
+              id="reg-fullname"
+              name="fullname"
+              placeholder="Jane Doe"
+              required
+            />
+            <span class="error-msg" id="reg-fullname-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="reg-email">Email address</label>
+            <input
+              type="email"
+              id="reg-email"
+              name="email"
+              placeholder="you@company.com"
+              required
+            />
+            <span class="error-msg" id="reg-email-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="reg-password">Password</label>
+            <input
+              type="password"
+              id="reg-password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+            <span class="error-msg" id="reg-password-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="reg-confirm-password">Confirm password</label>
+            <input
+              type="password"
+              id="reg-confirm-password"
+              name="confirmPassword"
+              placeholder="••••••••"
+              required
+            />
+            <span class="error-msg" id="reg-confirm-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="register-btn">
+            Create account
+          </button>
+        </form>
+
+        <div class="footer-text">
+          Already have an account?
+          <a href="#login" class="link" id="to-login">Login here</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../scripts/app.js"></script>
+</body>
+</html>

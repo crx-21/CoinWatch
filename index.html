@@ -1,96 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - API Project</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLJobWatch — Discover ML &amp; AI Jobs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
-
 <body>
-    <header>
-        <h1>MLJobWatch</h1>
-        <nav>
-            <a href="index.html" title="Home"><i class="fas fa-home"></i></a>
-            <a href="login.html" title="Login"><i class="fas fa-sign-in-alt"></i></a>
-        </nav>
-    </header>
 
-    <main id="app">
-        <section class="search-container">
-            <div class="search-bar">
-                <div class="search-input-group">
-                    <input type="text" id="search-text" placeholder="Search jobs, keywords...">
-                    <button id="fetch-btn">Search</button>
-                </div>
-                <div class="filters-group">
-                    <select id="category-filter">
-                        <option value="">All Categories</option>
-                    </select>
-                    <button id="advanced-btn" class="advanced-btn">
-                        Advanced Filters <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="advanced-section" class="advanced-filters hidden">
-                <div class="advanced-grid">
-                    <div class="filter-item">
-                        <label>Experience Level</label>
-                        <select id="level-filter">
-                            <option value="">All Levels</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label>Location</label>
-                        <select id="location-filter">
-                            <option value="">All Locations</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label>Company</label>
-                        <select id="company-filter">
-                            <option value="">All Companies</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div id="result-container" class="result-container">
-            <!-- API data will be injected here -->
-        </div>
-    </main>
-
-    <footer style="margin-bottom: 100px;">
-        <p>&copy; 2026 API Project</p>
-    </footer>
-
-    <div id="job-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Job Title</h2>
-                <button id="close-modal" class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-company" id="modal-company">Company Name</div>
-                <div class="modal-meta">
-                    <span id="modal-location"><i class="fas fa-map-marker-alt"></i> Location</span>
-                    <span id="modal-salary"><i class="fas fa-money-bill-wave"></i> Salary</span>
-                </div>
-                <div class="modal-description">
-                    <h4>Description</h4>
-                    <p id="modal-description">Detailed job description will appear here...</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="modal-apply-btn" class="apply-now-btn">Apply Now</button>
-            </div>
-        </div>
+  <!-- Hero Section: Text Left, Robot Right -->
+  <section class="hero-section">
+    <div class="hero-text">
+      <h1>MLJobWatch</h1>
+      <p>Track the latest machine learning and AI job opportunities across the industry.</p>
+      <div class="cta-wrapper">
+        <a href="pages/jobs.html" class="btn-go-jobs" aria-label="Go to jobs">
+          Go to Jobs
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
     </div>
 
-    <script src="scripts/api.js"></script>
-    <script src="scripts/main.js"></script>
-</body>
+    <div class="hero-robot">
+      <div class="robot-container">
+        <div class="robot-base"></div>
+        <div class="robot-head">
+          <div class="eyebrow left"></div>
+          <div class="eyebrow right"></div>
+          <div class="antenna left">
+            <div class="antenna-tip"></div>
+          </div>
+          <div class="antenna right">
+            <div class="antenna-tip"></div>
+          </div>
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="cheek left"></div>
+          <div class="cheek right"></div>
+          <div class="smile"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Secondary Navigation -->
+  <nav class="nav-links">
+    <a href="pages/login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    <a href="pages/about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+  </nav>
+
+</body>
 </html>
