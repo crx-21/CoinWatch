@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - API Project</title>
+    <title>Jobs - MLJobWatch</title>
     <link rel="stylesheet" href="../styles/jobs.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -35,6 +35,7 @@
                     </button>
                 </div>
             </div>
+
             <div id="advanced-section" class="advanced-filters hidden">
                 <div class="advanced-grid">
                     <div class="filter-item">
@@ -43,12 +44,14 @@
                             <option value="">All Levels</option>
                         </select>
                     </div>
+
                     <div class="filter-item">
                         <label>Location</label>
                         <select id="location-filter">
                             <option value="">All Locations</option>
                         </select>
                     </div>
+
                     <div class="filter-item">
                         <label>Company</label>
                         <select id="company-filter">
@@ -58,9 +61,8 @@
                 </div>
             </div>
         </section>
-        <div id="result-container" class="result-container">
-            <!-- API data will be injected here -->
-        </div>
+
+        <div id="result-container" class="result-container"></div>
     </main>
 
     <footer style="margin-bottom: 100px;">
@@ -73,17 +75,20 @@
                 <h2 id="modal-title">Job Title</h2>
                 <button id="close-modal" class="close-btn">&times;</button>
             </div>
+
             <div class="modal-body">
                 <div class="modal-company" id="modal-company">Company Name</div>
                 <div class="modal-meta">
                     <span id="modal-location"><i class="fas fa-map-marker-alt"></i> Location</span>
                     <span id="modal-salary"><i class="fas fa-money-bill-wave"></i> Salary</span>
                 </div>
+
                 <div class="modal-description">
                     <h4>Description</h4>
                     <p id="modal-description">Detailed job description will appear here...</p>
                 </div>
             </div>
+            
             <div class="modal-footer">
                 <button id="modal-apply-btn" class="apply-now-btn">Apply Now</button>
             </div>
