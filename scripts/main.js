@@ -3,6 +3,30 @@
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Check authentication
+    const isAuthenticated = sessionStorage.getItem('mljobwatch_auth') === 'true';
+    if (!isAuthenticated) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Display user info
+    const userData = JSON.parse(localStorage.getItem('mljobwatch_user') || '{}');
+    const userInfoEl = document.getElementById('user-info');
+    if (userInfoEl && userData.email) {
+        userInfoEl.textContent = userData.email;
+    }
+
+    // Handle logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('mljobwatch_user');
+            sessionStorage.removeItem('mljobwatch_auth');
+            window.location.href = 'login.html';
+        });
+    }
+
     const fetchBtn = document.getElementById('fetch-btn');
     const resultContainer = document.getElementById('result-container');
     const searchInput = document.getElementById('search-text');

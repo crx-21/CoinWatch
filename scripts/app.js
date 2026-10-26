@@ -20,6 +20,13 @@ const toLoginLink = document.getElementById("to-login");
 /*  Router                                                            */
 /* ------------------------------------------------------------------ */
 function route() {
+  // Check if already authenticated on login page
+  const isAuthenticated = sessionStorage.getItem('mljobwatch_auth') === 'true';
+  if (isAuthenticated && window.location.pathname.includes('login.html')) {
+    window.location.href = 'jobs.html';
+    return;
+  }
+
   const hash = window.location.hash || LOGIN_HASH;
 
   if (hash === REGISTER_HASH) {
@@ -114,12 +121,22 @@ loginForm.addEventListener("submit", (e) => {
 
   if (hasError) return;
 
-  // Simulate sign-in
+  // Hardcoded login - accept any credentials
   setLoginLoading(btn, true);
   setTimeout(() => {
     setLoginLoading(btn, false);
-    alert(`Signed in as ${emailInput.value.trim()}`);
-    loginForm.reset();
+    
+    // Store auth state
+    const user = {
+      email: emailInput.value.trim(),
+      name: emailInput.value.trim().split('@')[0],
+      loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem('mljobwatch_user', JSON.stringify(user));
+    sessionStorage.setItem('mljobwatch_auth', 'true');
+    
+    // Redirect to jobs page
+    window.location.href = 'jobs.html';
   }, 1000);
 });
 
@@ -177,13 +194,22 @@ registerForm.addEventListener("submit", (e) => {
 
   if (hasError) return;
 
-  // Simulate account creation
+  // Simulate account creation and auto-login
   setRegisterLoading(btn, true);
   setTimeout(() => {
     setRegisterLoading(btn, false);
-    alert(`Account created for ${fullnameInput.value.trim()}`);
-    registerForm.reset();
-    window.location.hash = LOGIN_HASH;
+    
+    // Store auth state (auto-login after registration)
+    const user = {
+      email: emailInput.value.trim(),
+      name: fullnameInput.value.trim(),
+      loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem('mljobwatch_user', JSON.stringify(user));
+    sessionStorage.setItem('mljobwatch_auth', 'true');
+    
+    // Redirect to jobs page
+    window.location.href = 'jobs.html';
   }, 1000);
 });
 
