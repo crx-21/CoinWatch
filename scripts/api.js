@@ -1,8 +1,3 @@
-/**
- * API Utility Module
- * Handles communication with the AI Jobs API.
- */
-
 const API_CONFIG = {
     BASE_URL: 'https://artificialintelligencejobs.co/api/jobs?limit=200',
 };
